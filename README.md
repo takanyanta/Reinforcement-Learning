@@ -8,7 +8,7 @@ Using Stable Baselines, TensorBoard
 ## Process
 
 ### Prepair libraries
-* [Stable Baselines](https://stable-baselines.readthedocs.io/en/master/) needs tensorflow==1.14.0
+* [Stable Baselines](https://stable-baselines.readthedocs.io/en/master/) needs tensorflow=1.14.0
 
 ### Implementation method
 
