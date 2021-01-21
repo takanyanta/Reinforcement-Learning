@@ -136,4 +136,5 @@ model.learn(total_timesteps=100000, callback=callback_func)
 ![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic4.png "process1")
 
 ## Conclusion
-
+* PPO could handle with multi-objective problem, so it seems very useful for solving real business problem.
+* On the other hand, it is seems that long learnig time would be needed.
