@@ -1,4 +1,4 @@
-# Reinforcement-Learning
+# Reinforcement-Learning-Study
 Using Stable Baselines, TensorBoard
 
 ## Purpose
