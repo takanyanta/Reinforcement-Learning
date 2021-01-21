@@ -14,7 +14,8 @@ Using Stable Baselines, TensorBoard
 
 ## Result(by using sample)
 
-
-<img src="https://latex.codecogs.com/gif.latex?Reward\left\{&space;\begin{array}{ll}&space;&plus;1&space;&&space;(|a&plus;b|-|\hat{a}&plus;\hat{b}|&space;\leqq&space;1)&space;\\&space;-1&space;&&space;(otherwise)&space;\end{array}&space;\right." /> 
+* Define *a*, *b* as the random number which take {1, 2, 3}.
+* Define *a'*, *b'* as the return value from PPO.
+<img src="https://latex.codecogs.com/gif.latex?Reward\left\{&space;\begin{array}{ll}&space;&plus;1&space;&&space;(|a&plus;b|-|a'&plus;b'|&space;\leqq&space;1)&space;\\&space;-1&space;&&space;(otherwise)&space;\end{array}&space;\right." /> 
 ## Conclusion
 
