@@ -52,8 +52,6 @@ def take_action(self, action):
     else:
         self.reward = -1
 
-    kekka.append(np.abs((np.sum(self.one_set) - np.sum(self.action))))
-
     return self.reward
 def observe(self):
     if self.current_step >= len(self.df):
