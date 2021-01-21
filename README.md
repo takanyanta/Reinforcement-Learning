@@ -12,8 +12,9 @@ Using Stable Baselines, TensorBoard
 
 ### Implementation method
 
-* gym.Env should be inherited.
+* "gym.Env" should be inherited.
 * "action_space" and "observation_space" should be defined.
+* Both could be defined by using "gym.spaces.Box" function.
 
 ```python
 def __init__(self, df):
@@ -25,11 +26,15 @@ def __init__(self, df):
     self.observation_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(1, df_std.shape[1]))
 ```
 
-* Stable Baseline needs 4 function 
-| TH1 | TH2 |
+* gym.Env needs below functions;
+
+| Function Name | Explanation | 
 ----|---- 
-| TD1 | TD3 |
-| TD2 | TD4 |
+| reset(self) | When the episode would be done, return the new observation |
+| take_action(self, action) | To define the reward condition and return the reward|
+| observe(self) | To retun the observed value |
+| step(self, action) | To proceed to the next |
+| (Render) | (It is needed for visualizing the results) |
 
 ## Result(by using sample)
 
