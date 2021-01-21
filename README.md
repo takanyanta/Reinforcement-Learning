@@ -27,6 +27,13 @@ Using Stable Baselines, TensorBoard
 * Use default hyperparameter
 
 ### Learning Result
+* The value gap between |a+b| and |a'+b'| becomes shrink as the learning proceeds.
+![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic2.png "process1")
+
+* By using Tensorboard, the learning process could be easily shown.
+![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic3.png "process1")
+
+![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic4.png "process1")
 
 ## Conclusion
 
