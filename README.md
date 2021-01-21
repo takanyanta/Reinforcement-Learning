@@ -12,6 +12,25 @@ Using Stable Baselines, TensorBoard
 
 ### Implementation method
 
+* gym.Env should be inherited.
+* "action_space" and "observation_space" should be defined.
+
+```python
+def __init__(self, df):
+    super(ReinforcementLearning, self).__init__()
+    self.df = df
+
+    #Define Action Space and Observation Space
+    self.action_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(2, ))
+    self.observation_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(1, df_std.shape[1]))
+```
+
+* Stable Baseline needs 4 function 
+| TH1 | TH2 |
+----|---- 
+| TD1 | TD3 |
+| TD2 | TD4 |
+
 ## Result(by using sample)
 
 ### Assumption
@@ -30,7 +49,12 @@ Using Stable Baselines, TensorBoard
 * The value gap between |a+b| and |a'+b'| becomes shrink as the learning proceeds.
 ![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic2.png "process1")
 
-* By using Tensorboard, the learning process could be easily shown.
+* By using Tensorboard, both the learning process and the structure of the model could be easily shown.
+```python
+%load_ext tensorboard
+%tensorboard --logdir='./tensorboard'
+```
+
 ![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic3.png "process1")
 
 ![Extract the frame](https://github.com/takanyanta/Reinforcement-Learning-Study/blob/main/pic4.png "process1")
