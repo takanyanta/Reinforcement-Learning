@@ -17,13 +17,14 @@ Using Stable Baselines, TensorBoard
 * Both could be defined by using "gym.spaces.Box" function.
 
 ```python
-def __init__(self, df):
-    super(ReinforcementLearning, self).__init__()
-    self.df = df
-
-    #Define Action Space and Observation Space
-    self.action_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(2, ))
-    self.observation_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(1, df_std.shape[1]))
+class ReinforcementLearning(gym.Env):
+    def __init__(self, df):
+        super(ReinforcementLearning, self).__init__()
+        self.df = df
+        
+        #Define Action Space and Observation Space
+        self.action_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(2, ))
+        self.observation_space = gym.spaces.Box(low=-max_val, high=max_val, shape=(1, df_std.shape[1]))
 ```
 
 * gym.Env needs below functions;
@@ -35,6 +36,76 @@ def __init__(self, df):
 | observe(self) | To retun the observed value |
 | step(self, action) | To proceed to the next |
 | (Render) | (It is needed for visualizing the results) |
+
+```python
+def reset(self):#When self.done == True or the model starts to run, the environment would be reset
+    self.current_step = random.randint(0, len(self.df))
+    return self.observe()
+
+def take_action(self, action):
+    self.action = action
+
+    self.one_set = self.df.iloc[self.current_step].values
+
+    if np.abs((np.sum(self.one_set) - np.sum(self.action)))<=1:
+        self.reward = 1
+    else:
+        self.reward = -1
+
+    kekka.append(np.abs((np.sum(self.one_set) - np.sum(self.action))))
+
+    return self.reward
+def observe(self):
+    if self.current_step >= len(self.df):
+        self.current_step = 0
+    self.obs = self.df.iloc[self.current_step].values
+    return self.obs
+
+def step(self, action):
+    self.action = action
+    self.reward = self.take_action(self.action)
+    self.current_step += 1
+    if self.reward >=1:
+        self.done = True
+    else:
+        self.done = False
+    self.obs = self.observe()
+
+    return self.obs, self.reward, self.done, {}
+```
+* If callback is needed, you should define callback function.
+```python
+def callback_func(_locals, _globals):
+    global n_steps, best_mean_reward
+    if n_steps == 0:
+        print("model first saved")
+        model.save(log_dir + "model")
+    x, y = ts2xy(load_results(log_dir), 'timesteps')
+    if len(x) > 0:
+        mean_reward = np.mean(y)
+        if mean_reward > best_mean_reward:
+            best_mean_reward = mean_reward
+            print("n_steps:", n_steps, "model updated")
+            model.save(log_dir + "model")
+    n_steps += 1
+```
+
+* You could save the learning process by wrapping the environment by "Monitor".
+* As will be described later, you could also watch the learning process by setting the saved location of "tensorboard_log".
+
+```python
+log_dir = "./log_dir/"
+os.makedirs(log_dir, exist_ok=True)
+
+env = ReinforcementLearning(df_std)
+env = Monitor(env, log_dir, allow_early_resets=True)
+env = DummyVecEnv([lambda: env])
+
+best_mean_reward, n_steps = -np.inf, 0
+model = PPO2(MlpPolicy, env, tensorboard_log="./tensorboard/" ,)
+model.learn(total_timesteps=100000, callback=callback_func)
+```
+
 
 ## Result(by using sample)
 
